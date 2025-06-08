@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-800;
+  }
+  h1 {
+    @apply text-2xl font-bold;
+  }
+  /* Add more base styles as needed */
+}
+
+/* Custom components */
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded;
+  }
+  /* Add more components as needed */
+}
+
+/* Custom utilities */
+@layer utilities {
+  /* Add custom utilities if needed */
+}
