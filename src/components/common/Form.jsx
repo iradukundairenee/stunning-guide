@@ -1,18 +1,4 @@
 import { Form as AntForm } from 'antd';
-import type { FormProps } from 'antd/lib/form';
-import type { ReactNode } from 'react';
-
-interface CustomFormProps extends FormProps {
-  title?: string;
-  description?: string;
-  children: ReactNode;
-  onSubmit?: (values: any) => void;
-  submitText?: string;
-  cancelText?: string;
-  onCancel?: () => void;
-  loading?: boolean;
-  showActions?: boolean;
-}
 
 function Form({
   title,
@@ -26,10 +12,10 @@ function Form({
   showActions = true,
   className = '',
   ...props
-}: CustomFormProps) {
+}) {
   const [form] = AntForm.useForm();
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values) => {
     if (onSubmit) {
       await onSubmit(values);
     }

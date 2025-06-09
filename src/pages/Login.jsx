@@ -4,27 +4,19 @@ import { useAppDispatch, useAppSelector } from '../store/hooks';
 import { login } from '../store/slices/authSlice';
 import { Form, Input, Button, Select, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import type { RootState } from '../store';
-import type { AuthState } from '../store/slices/authSlice';
-
-interface LoginFormData {
-  email: string;
-  password: string;
-  role: 'admin' | 'farmer';
-}
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { loading, error } = useAppSelector((state: RootState) => state.auth) as AuthState;
+  const { loading, error } = useAppSelector((state) => state.auth);
   const [form] = Form.useForm();
 
-  const handleSubmit = async (values: Omit<LoginFormData, 'role'>) => {
+  const handleSubmit = async (values) => {
     try {
-      await dispatch(login(values as { email: string; password: string })).unwrap();
+      await dispatch(login(values)).unwrap();
       message.success('Login successful!');
       navigate('/dashboard');
-    } catch (err: any) {
+    } catch (err) {
       const errorMessage = err.message || 'Login failed. Please check your credentials.';
       message.error(errorMessage);
       console.error('Login error details:', err);
@@ -82,4 +74,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Login; 

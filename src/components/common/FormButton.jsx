@@ -1,15 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
-import type { ButtonProps } from 'antd/lib/button';
 
-interface FormButtonProps extends ButtonProps {
-  fullWidth?: boolean;
-  loading?: boolean;
-  type?: 'primary' | 'default' | 'dashed' | 'link' | 'text';
-  htmlType?: 'button' | 'submit' | 'reset';
-}
-
-const FormButton: React.FC<FormButtonProps> = ({
+const FormButton = ({
   children,
   fullWidth = false,
   loading = false,

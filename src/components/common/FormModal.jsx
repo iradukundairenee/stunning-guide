@@ -1,16 +1,4 @@
 import { Modal, Form, Button, Space } from 'antd';
-import type { ReactNode } from 'react';
-
-interface FormModalProps {
-  title: string;
-  open: boolean;
-  onClose: () => void;
-  onSubmit: (values: any) => void;
-  loading?: boolean;
-  children: ReactNode;
-  initialValues?: any;
-  width?: number;
-}
 
 function FormModal({
   title,
@@ -21,7 +9,7 @@ function FormModal({
   children,
   initialValues,
   width = 800
-}: FormModalProps) {
+}) {
   const [form] = Form.useForm();
 
   const handleSubmit = async () => {

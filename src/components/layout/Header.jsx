@@ -6,14 +6,7 @@ import { logout } from '../../store/slices/authSlice';
 
 const { Header: AntHeader } = Layout;
 
-interface HeaderProps {
-  user: {
-    name?: string;
-    role?: 'admin' | 'farmer';
-  } | null;
-}
-
-function Header({ user }: HeaderProps) {
+function Header({ user }) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -63,4 +56,4 @@ function Header({ user }: HeaderProps) {
   );
 }
 
-export default Header;
+export default Header; 

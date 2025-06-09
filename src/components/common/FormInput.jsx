@@ -1,18 +1,7 @@
 import React from 'react';
 import { Form, Input } from 'antd';
-import type { InputProps } from 'antd/lib/input';
-import type { Rule } from 'antd/lib/form';
 
-interface FormInputProps extends InputProps {
-  name: string;
-  label?: string;
-  rules?: Rule[];
-  prefix?: React.ReactNode;
-  type?: 'text' | 'password' | 'email' | 'number';
-  placeholder?: string;
-}
-
-const FormInput: React.FC<FormInputProps> = ({
+const FormInput = ({
   name,
   label,
   rules = [],

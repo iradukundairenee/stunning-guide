@@ -1,67 +1,48 @@
+import { useState, useEffect } from 'react';
 import { Card, Row, Col, DatePicker, Select, Button, Table, Statistic } from 'antd';
 import { DownloadOutlined, LineChartOutlined, BarChartOutlined, PieChartOutlined } from '@ant-design/icons';
-import type { ColumnsType } from 'antd/es/table';
+import { useAppDispatch, useAppSelector } from '../store/hooks';
 
 const { RangePicker } = DatePicker;
 
-interface ReportData {
-  key: string;
-  farmer: string;
-  loanAmount: number;
-  status: string;
-  date: string;
-  interest: number;
-}
-
 function Reports() {
-  // Mock data for the table
-  const data: ReportData[] = [
-    {
-      key: '1',
-      farmer: 'John Doe',
-      loanAmount: 5000,
-      status: 'Active',
-      date: '2024-03-20',
-      interest: 500
-    },
-    {
-      key: '2',
-      farmer: 'Jane Smith',
-      loanAmount: 3000,
-      status: 'Paid',
-      date: '2024-03-19',
-      interest: 300
-    },
-    // Add more mock data as needed
-  ];
+  const dispatch = useAppDispatch();
+  const { loans } = useAppSelector((state) => state.loans);
+  const { farmers } = useAppSelector((state) => state.farmers);
+  const [dateRange, setDateRange] = useState(null);
 
-  const columns: ColumnsType<ReportData> = [
+  useEffect(() => {
+    // TODO: Fetch reports data based on date range
+    console.log('Fetching reports data...');
+  }, [dateRange]);
+
+  const totalLoans = loans?.length || 0;
+  const totalFarmers = farmers?.length || 0;
+  const totalAmount = loans?.reduce((sum, loan) => sum + loan.amount, 0) || 0;
+  const approvedLoans = loans?.filter(loan => loan.status === 'approved').length || 0;
+
+  const columns = [
+    {
+      title: 'Date',
+      dataIndex: 'date',
+      key: 'date',
+      render: (date) => new Date(date).toLocaleDateString(),
+    },
     {
       title: 'Farmer',
-      dataIndex: 'farmer',
+      dataIndex: ['farmer', 'name'],
       key: 'farmer',
     },
     {
-      title: 'Loan Amount',
-      dataIndex: 'loanAmount',
-      key: 'loanAmount',
-      render: (value) => `$${value.toLocaleString()}`,
+      title: 'Amount',
+      dataIndex: 'amount',
+      key: 'amount',
+      render: (amount) => `$${amount.toLocaleString()}`,
     },
     {
       title: 'Status',
       dataIndex: 'status',
       key: 'status',
-    },
-    {
-      title: 'Date',
-      dataIndex: 'date',
-      key: 'date',
-    },
-    {
-      title: 'Interest',
-      dataIndex: 'interest',
-      key: 'interest',
-      render: (value) => `$${value.toLocaleString()}`,
     },
   ];
 
@@ -107,7 +88,7 @@ function Reports() {
           <Card>
             <Statistic
               title="Total Loans"
-              value={150}
+              value={totalLoans}
               prefix={<LineChartOutlined />}
               valueStyle={{ color: '#10B981' }}
             />
@@ -117,7 +98,7 @@ function Reports() {
           <Card>
             <Statistic
               title="Total Amount"
-              value={750000}
+              value={totalAmount}
               prefix="$"
               valueStyle={{ color: '#10B981' }}
             />
@@ -127,7 +108,7 @@ function Reports() {
           <Card>
             <Statistic
               title="Average Loan Size"
-              value={5000}
+              value={totalAmount / (totalLoans || 1)}
               prefix="$"
               valueStyle={{ color: '#10B981' }}
             />
@@ -159,7 +140,8 @@ function Reports() {
       <Card title="Detailed Report">
         <Table
           columns={columns}
-          dataSource={data}
+          dataSource={loans}
+          rowKey="id"
           pagination={{ pageSize: 10 }}
         />
       </Card>

@@ -1,18 +1,6 @@
 import { Card, Statistic } from 'antd';
-import type { ReactNode } from 'react';
 
-interface StatCardProps {
-  title: string;
-  value: number;
-  icon: ReactNode;
-  trend?: {
-    value: string;
-    isUp: boolean;
-  };
-  loading?: boolean;
-}
-
-function StatCard({ title, value, icon, trend, loading }: StatCardProps) {
+function StatCard({ title, value, icon, trend, loading }) {
   return (
     <Card loading={loading}>
       <Statistic

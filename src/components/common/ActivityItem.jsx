@@ -1,14 +1,8 @@
 import { Card, Tag, Space } from 'antd';
 import { Activity } from 'lucide-react';
 
-interface ActivityItemProps {
-  description: string;
-  timestamp: string;
-  status: 'pending' | 'completed' | 'failed';
-}
-
-function ActivityItem({ description, timestamp, status }: ActivityItemProps) {
-  const getStatusColor = (status: string) => {
+function ActivityItem({ description, timestamp, status }) {
+  const getStatusColor = (status) => {
     switch (status) {
       case 'completed':
         return 'success';

@@ -8,24 +8,16 @@ import {
   BarChartOutlined,
 } from '@ant-design/icons';
 import { useAppSelector } from '../../store/hooks';
-import type { AuthState } from '../../store/slices/authSlice';
 
 const { Sider } = Layout;
-
-interface MenuItem {
-  key: string;
-  icon: React.ReactNode;
-  label: string;
-  roles?: string[];
-}
 
 function SideNav() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user } = useAppSelector(state => (state.auth as AuthState));
+  const { user } = useAppSelector(state => state.auth);
   const userRole = user?.role;
 
-  const allMenuItems: MenuItem[] = [
+  const allMenuItems = [
     {
       key: '/dashboard',
       icon: <DashboardOutlined />,
@@ -62,7 +54,7 @@ function SideNav() {
     !item.roles || (userRole && item.roles.includes(userRole))
   );
 
-  const handleMenuClick = (key: string) => {
+  const handleMenuClick = (key) => {
     navigate(key);
   };
 

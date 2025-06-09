@@ -8,11 +8,7 @@ import LoansList from '../components/Dashboard/LoansList';
 import Reports from '../pages/Reports';
 import Settings from '../pages/Settings';
 
-// Define the user type
-interface User {
-  role: string;
-  // Add other properties as needed
-}
+
 
 function Dashboard() {
   const { user } = useAppSelector((state) => state.auth);

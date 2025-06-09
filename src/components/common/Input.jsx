@@ -1,15 +1,4 @@
 import { Input as AntInput } from 'antd';
-import type { InputProps } from 'antd/lib/input';
-import type { ReactNode } from 'react';
-
-interface CustomInputProps extends InputProps {
-  label?: string;
-  error?: string;
-  helperText?: string;
-  fullWidth?: boolean;
-  leftIcon?: ReactNode;
-  rightIcon?: ReactNode;
-}
 
 function Input({
   label,
@@ -20,7 +9,7 @@ function Input({
   rightIcon,
   className = '',
   ...props
-}: CustomInputProps) {
+}) {
   return (
     <div className={`flex flex-col gap-1 ${fullWidth ? 'w-full' : ''}`}>
       {label && (
