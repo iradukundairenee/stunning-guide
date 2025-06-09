@@ -31,7 +31,7 @@ export const logout = createAsyncThunk(
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: mockUser, // For testing, start with a logged-in user
+    user: null, // Changed from mockUser to null
     loading: false,
     error: null,
   },

@@ -1,15 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import LoginModal from '../components/LoginModal';
 import LandingPageHeader from '../components/layout/LandingPageHeader';
 import Footer from '../components/layout/Footer';
 import { Button, Typography, Card, Row, Col, Space } from 'antd';
 import { MobileOutlined, LineChartOutlined, DollarCircleOutlined, UserOutlined, StarOutlined } from '@ant-design/icons';
-import heroImage from '../assets/images/faming2.jpg';
+
+// Import all hero images
+import heroImage2 from '../assets/images/Screenshot 2025-06-09 125630.png';
+import heroImage3 from '../assets/images/tim-mossholder-xDwEa2kaeJA-unsplash.jpg';
+import heroImage4 from '../assets/images/Screenshot 2025-06-09 125630.png';
+import heroImage5 from '../assets/images/Screenshot 2025-06-09 125607.png';
+
+const heroImages = [heroImage2,heroImage3, heroImage4, heroImage5];
 
 const { Title, Paragraph, Text } = Typography;
 
 function LandingPage() {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -19,34 +27,39 @@ function LandingPage() {
     setIsModalVisible(false);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % heroImages.length);
+    }, 5000); // Change image every 5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <LandingPageHeader onSignInClick={showModal} />
 
-      {/* Hero Section */}
-      <section className="relative bg-white py-20 px-8">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between">
-          <div className="md:w-1/2 text-center md:text-left mb-12 md:mb-0">
-            <Title level={1} className="text-5xl font-extrabold text-gray-900 leading-tight mb-6">
-              Empowering Farmers with <span className="text-green-600">Digital Credit Solutions</span>
-            </Title>
-            <Paragraph className="text-lg text-gray-600 mb-8">
-              Access financial services, track income, and build credit scores through our integrated USSD and web platform.
-            </Paragraph>
-            <Space size="large">
-              <Button type="primary" size="large" style={{ backgroundColor: '#16a34a', borderColor: '#16a34a' }} onClick={showModal}>
-                Get Started
-              </Button>
-              <Button size="large" style={{ borderColor: '#16a34a', color: '#16a34a' }} onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
-                Learn More
-              </Button>
-            </Space>
-          </div>
-          <div className="md:w-1/2 flex justify-center items-center">
-            <div className="bg-gray-200 w-full md:w-4/5 h-80 rounded-lg flex items-center justify-center text-gray-500">
-              Farmer using mobile phone illustration
-            </div>
-          </div>
+      {/* Hero Section with image carousel */}
+      <section
+        className="relative w-full h-[70vh] flex items-center justify-center bg-cover bg-center transition-opacity duration-1000 ease-in-out"
+        style={{ backgroundImage: `url(${heroImages[currentImageIndex]})` }}
+      >
+        <div className="absolute inset-0 bg-black opacity-60"></div>
+        <div className="relative z-10 text-white text-center px-4 max-w-4xl mx-auto">
+          <h1 className="text-5xl font-extrabold text-white leading-tight mb-6">
+            Empowering Farmers with <span className="text-white">Digital Credit Solutions</span>
+          </h1>
+          <Paragraph className="text-lg text-gray-200 mb-8">
+            Access financial services, track income, and build credit scores through our integrated USSD and web platform.
+          </Paragraph>
+          <Space size="large">
+            <Button type="primary" size="large" style={{ backgroundColor: '#16a34a', borderColor: '#16a34a' }} onClick={showModal}>
+              Get Started
+            </Button>
+            <Button size="large" ghost style={{ borderColor: '#fff', color: '#fff' }} onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}>
+              Learn More
+            </Button>
+          </Space>
         </div>
       </section>
 
@@ -123,8 +136,18 @@ function LandingPage() {
         </div>
       </section>
 
+      {/* About Us Section */}
+      <section id="about-us-section" className="py-20 px-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <Title level={2} className="mb-12">About Us</Title>
+          <Paragraph className="text-lg text-gray-700">
+            We go beyond loans, offering crucial support in farm management, mitigating post-harvest losses, and providing vital climate change information to ensure every farmer's success. We need to make sure the loan achieves its goal.
+          </Paragraph>
+        </div>
+      </section>
+
       {/* Farmer Success Stories Section */}
-      <section id="testimonials-section" className="py-20 px-8 bg-gray-50">
+      <section id="testimonials-section" className="py-20 px-8 bg-white">
         <div className="max-w-7xl mx-auto text-center">
           <Title level={2} className="mb-12">Farmer Success Stories</Title>
           <Row gutter={[32, 32]}>
